@@ -1,0 +1,104 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "c7898cb7f60ac7584d77",
+  "position": {
+    "x": 65.8664299234493,
+    "y": 41.16651870215582,
+    "z": 0,
+    "height": 318.35441129667163,
+    "width": 400.68744870098328,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dimcity"
+                    }
+                  },
+                  "Property": "State Province"
+                }
+              },
+              "queryRef": "dimcity.State Province",
+              "nativeQueryRef": "State Province",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "factsale"
+                        }
+                      },
+                      "Property": "Total Excluding Tax"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(factsale.Total Excluding Tax)",
+              "nativeQueryRef": "Sum of Total Excluding Tax"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "factsale"
+                      }
+                    },
+                    "Property": "Total Excluding Tax"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "e53f11a7c8fc70218ed9",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "factsale"
+              }
+            },
+            "Property": "Profit label"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "User"
+      }
+    ]
+  }
+}

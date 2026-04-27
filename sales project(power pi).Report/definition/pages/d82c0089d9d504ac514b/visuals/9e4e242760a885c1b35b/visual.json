@@ -1,0 +1,109 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "9e4e242760a885c1b35b",
+  "position": {
+    "x": 296.39893465552188,
+    "y": 85.077471984455357,
+    "z": 0,
+    "height": 517.3259183570915,
+    "width": 738.252902058661,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "barChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dimcity"
+                        }
+                      },
+                      "Hierarchy": "State Province Hierarchy"
+                    }
+                  },
+                  "Level": "State Province"
+                }
+              },
+              "queryRef": "dimcity.State Province Hierarchy.State Province",
+              "nativeQueryRef": "State Province Hierarchy State Province",
+              "active": true
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dimcity"
+                        }
+                      },
+                      "Hierarchy": "State Province Hierarchy"
+                    }
+                  },
+                  "Level": "City"
+                }
+              },
+              "queryRef": "dimcity.State Province Hierarchy.City",
+              "nativeQueryRef": "State Province Hierarchy City",
+              "active": false
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "factsale"
+                        }
+                      },
+                      "Property": "Quantity"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(factsale.Quantity)",
+              "nativeQueryRef": "Sum of Quantity"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "factsale"
+                      }
+                    },
+                    "Property": "Quantity"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

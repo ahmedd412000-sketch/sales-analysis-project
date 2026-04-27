@@ -1,0 +1,66 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "c619b69007c100b2a8b9",
+  "position": {
+    "x": 45.714285714285715,
+    "y": 41.428571428571431,
+    "z": 2000,
+    "height": 257.14285714285717,
+    "width": 574.28571428571433,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "factsale"
+                        }
+                      },
+                      "Property": "Total Excluding Tax"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(factsale.Total Excluding Tax)",
+              "nativeQueryRef": "Sum of Total Excluding Tax"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "factsale"
+                      }
+                    },
+                    "Property": "Total Excluding Tax"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

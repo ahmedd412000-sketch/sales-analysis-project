@@ -1,0 +1,52 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "90f1135259c900b89509",
+  "position": {
+    "x": 723.15851186787052,
+    "y": 101.54407946531768,
+    "z": 1000,
+    "height": 351.2876262583963,
+    "width": 491.25378984572609,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dimstockitem"
+                    }
+                  },
+                  "Property": "Stock Item"
+                }
+              },
+              "queryRef": "dimstockitem.Stock Item",
+              "nativeQueryRef": "Stock Item"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "factsale"
+                    }
+                  },
+                  "Property": "profitability"
+                }
+              },
+              "queryRef": "factsale.profitability",
+              "nativeQueryRef": "profitability"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

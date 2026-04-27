@@ -1,0 +1,35 @@
+relationship 929f8e56-61b8-4598-a7cc-051ced69bdd0
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dimdata.Date
+	toColumn: LocalDateTable_f6a58413-03a4-4e4b-86f4-9ad52ef620c4.Date
+
+relationship b146cb15-d37c-4339-a456-52ee25c0fc8f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dimemployee.'Valid From'
+	toColumn: LocalDateTable_137f2f1c-b190-4c91-89b5-f9e240492b6b.Date
+
+relationship 053803e5-c771-4b71-9c08-86c186987373
+	joinOnDateBehavior: datePartOnly
+	fromColumn: factsale.'Delivery Date Key'
+	toColumn: LocalDateTable_c8f0fe4f-695c-4b4b-86cf-f614681fb462.Date
+
+relationship AutoDetected_38ff5cba-28ff-4d9b-9403-aca233a7c239
+	fromColumn: factsale.'City Key'
+	toColumn: dimcity.'City Key'
+
+relationship AutoDetected_2592adb5-bc8c-44de-ba6f-c35ab012347f
+	fromColumn: factsale.'Stock Item Key'
+	toColumn: dimstockitem.'Stock Item Key'
+
+relationship e90dac36-63d4-4188-e025-f973a5ca2918
+	fromColumn: factsale.'Customer Key'
+	toColumn: dimcustomer.'Customer Key'
+
+relationship 84fbe582-2c63-dd7e-c68a-5bbb7c390d6d
+	fromColumn: factsale.'Salesperson Key'
+	toColumn: dimemployee.'Employee Key'
+
+relationship 1eaf074d-695c-0eb4-f88f-3ef1f54dad80
+	fromColumn: factsale.'Invoice Date Key'
+	toColumn: dimdata.Date
+

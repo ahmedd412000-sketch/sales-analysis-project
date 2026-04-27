@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "sales project(power pi)"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "0a3a09a8-224b-4b82-83f1-cf977ebde727"
+  }
+}

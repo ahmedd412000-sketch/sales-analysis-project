@@ -1,0 +1,129 @@
+table dimcustomer
+	lineageTag: ebbb4f2b-e56c-49f1-9374-f06a13de6ca0
+
+	column 'Customer Key'
+		dataType: int64
+		formatString: 0
+		lineageTag: 955aadf8-fbee-4474-899c-44c8d320cd15
+		summarizeBy: none
+		sourceColumn: Customer Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'WWI Customer ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: e8b5279d-c3ae-4554-b53e-237cefab018d
+		summarizeBy: none
+		sourceColumn: WWI Customer ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Customer
+		dataType: string
+		lineageTag: 359fecf3-893d-4524-9c53-06705c62e29d
+		summarizeBy: none
+		sourceColumn: Customer
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Bill To Customer'
+		dataType: string
+		lineageTag: 41f742c8-ddc0-469c-8611-e2cf98295fec
+		summarizeBy: none
+		sourceColumn: Bill To Customer
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		dataType: string
+		lineageTag: c326b329-c154-4466-adbe-59199ece91be
+		summarizeBy: none
+		sourceColumn: Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Buying Group'
+		dataType: string
+		lineageTag: cbbfaaeb-5272-47ae-8f99-68c2866f2b6c
+		summarizeBy: none
+		sourceColumn: Buying Group
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Primary Contact'
+		dataType: string
+		lineageTag: 6006d45f-8d56-4a54-bc02-3bb8c0fda55b
+		summarizeBy: none
+		sourceColumn: Primary Contact
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Postal Code'
+		dataType: string
+		lineageTag: 84b15c7f-2152-43d4-8a3a-6f95d27414d4
+		summarizeBy: none
+		sourceColumn: Postal Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Credit Limit'
+		dataType: double
+		lineageTag: be3b2e4e-7091-4f87-9777-f87808234855
+		summarizeBy: none
+		sourceColumn: Credit Limit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Valid From'
+		dataType: string
+		isHidden
+		lineageTag: 36d1ee49-2992-4fd4-bb56-8d467871a6a6
+		summarizeBy: none
+		sourceColumn: Valid From
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Valid To'
+		dataType: string
+		lineageTag: d798bb6b-618f-48de-83ea-d92911ec2d82
+		summarizeBy: none
+		sourceColumn: Valid To
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Lineage Key'
+		dataType: int64
+		formatString: 0
+		lineageTag: e55d47b2-604d-44c4-8468-00722cb5c51b
+		summarizeBy: none
+		sourceColumn: Lineage Key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dimcustomer = m
+		mode: import
+		source =
+				let
+				    Source = Folder.Files("C:\Users\ahmed\Downloads\WWI(data set)"),
+				    #"C:\Users\ahmed\Downloads\WWI(data set)\_DimCustomer csv" = Source{[#"Folder Path"="C:\Users\ahmed\Downloads\WWI(data set)\",Name="DimCustomer.csv"]}[Content],
+				    #"Imported CSV" = Csv.Document(#"C:\Users\ahmed\Downloads\WWI(data set)\_DimCustomer csv",[Delimiter=",", Columns=12, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Imported CSV",{{"Column1", type text}, {"Column2", type text}, {"Column3", type text}, {"Column4", type text}, {"Column5", type text}, {"Column6", type text}, {"Column7", type text}, {"Column8", type text}, {"Column9", type text}, {"Column10", type text}, {"Column11", type text}, {"Column12", type text}}),
+				    #"Removed Top Rows" = Table.Skip(#"Changed Type",1),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Removed Top Rows", [PromoteAllScalars=true]),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Promoted Headers",{{"Customer Key", Int64.Type}, {"WWI Customer ID", Int64.Type}, {"Customer", type text}, {"Bill To Customer", type text}, {"Category", type text}, {"Buying Group", type text}, {"Primary Contact", type text}, {"Postal Code", type text}, {"Credit Limit", type text}, {"Valid From", type text}, {"Valid To", type text}, {"Lineage Key", Int64.Type}}),
+				    #"Replaced Value ""?"" credit limit" = Table.ReplaceValue(#"Changed Type1","?","",Replacer.ReplaceText,{"Credit Limit"}),
+				    #"Replaced Value ""-"" credit limit" = Table.ReplaceValue(#"Replaced Value ""?"" credit limit","-","0",Replacer.ReplaceText,{"Credit Limit"}),
+				    #"Changed Type credit limit" = Table.TransformColumnTypes(#"Replaced Value ""-"" credit limit",{{"Credit Limit", type number}}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Changed Type credit limit","N/A","Others",Replacer.ReplaceText,{"Buying Group"})
+				in
+				    #"Replaced Value"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

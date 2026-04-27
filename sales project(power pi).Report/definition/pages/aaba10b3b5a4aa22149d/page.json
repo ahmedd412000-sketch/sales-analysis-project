@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "aaba10b3b5a4aa22149d",
+  "displayName": "Filtering",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280
+}

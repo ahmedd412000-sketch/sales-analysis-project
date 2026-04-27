@@ -1,0 +1,27 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["dimcity","dimcustomer","dimdata","dimemployee","dimstockitem","factsale"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table dimcity
+ref table dimcustomer
+ref table dimdata
+ref table DateTableTemplate_ebb937fb-5ec6-4060-a3de-0b179f44b056
+ref table LocalDateTable_f6a58413-03a4-4e4b-86f4-9ad52ef620c4
+ref table dimemployee
+ref table LocalDateTable_137f2f1c-b190-4c91-89b5-f9e240492b6b
+ref table dimstockitem
+ref table factsale
+ref table LocalDateTable_c8f0fe4f-695c-4b4b-86cf-f614681fb462
+
+ref cultureInfo en-US
+

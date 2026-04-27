@@ -1,0 +1,88 @@
+table dimcity
+	lineageTag: 6d5968a7-f1ac-4b5a-b1dc-2f44cef8c65e
+
+	column 'City Key'
+		dataType: int64
+		formatString: 0
+		lineageTag: f0a0f6e4-3670-499a-adaf-6429a1ffe663
+		summarizeBy: none
+		sourceColumn: City Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		dataType: string
+		lineageTag: 81e349b0-4752-4852-b9bd-ea84ed3020f4
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'State Province'
+		dataType: string
+		lineageTag: 4db39c48-9116-4912-a3c3-04bb013f59c9
+		summarizeBy: none
+		sourceColumn: State Province
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: a220ecf3-d810-4260-8ced-b616036b30f6
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sales Territory'
+		dataType: string
+		lineageTag: f842b7db-2d7d-436e-b1ab-e6e41372a849
+		summarizeBy: none
+		sourceColumn: Sales Territory
+
+		annotation SummarizationSetBy = Automatic
+
+	column Location
+		dataType: string
+		lineageTag: 2133ddda-06ad-4fa8-a153-dfb5545066ef
+		summarizeBy: none
+		sourceColumn: Location
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Latest Recorded Population'
+		dataType: int64
+		formatString: 0
+		lineageTag: cffe077e-1bbf-41be-acec-6254c3670807
+		summarizeBy: none
+		sourceColumn: Latest Recorded Population
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy 'State Province Hierarchy'
+		lineageTag: cdbaf445-6d5d-4332-819b-3a1d7f52c5e3
+
+		level 'State Province'
+			lineageTag: 5fa2f3d1-8b4a-4860-9483-738216e5863e
+			column: 'State Province'
+
+		level City
+			lineageTag: 54a72018-a93d-4c51-902f-f7b92adfcabe
+			column: City
+
+	partition dimcity = m
+		mode: import
+		source =
+				let
+				    Source = Folder.Files("C:\Users\ahmed\Downloads\WWI(data set)"),
+				    #"C:\Users\ahmed\Downloads\WWI(data set)\_DimCity csv" = Source{[#"Folder Path"="C:\Users\ahmed\Downloads\WWI(data set)\",Name="DimCity.csv"]}[Content],
+				    #"Imported CSV" = Csv.Document(#"C:\Users\ahmed\Downloads\WWI(data set)\_DimCity csv",[Delimiter=",", Columns=7, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Imported CSV", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"City Key", Int64.Type}, {"City", type text}, {"State Province", type text}, {"Country", type text}, {"Sales Territory", type text}, {"Location", type text}, {"Latest Recorded Population", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

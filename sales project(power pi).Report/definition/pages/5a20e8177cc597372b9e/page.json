@@ -1,0 +1,25 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "5a20e8177cc597372b9e",
+  "displayName": "Interactions",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "visualInteractions": [
+    {
+      "source": "864c3e27b95a68751b2c",
+      "target": "8dc61f63b80cd91ba385",
+      "type": "HighlightFilter"
+    },
+    {
+      "source": "864c3e27b95a68751b2c",
+      "target": "c619b69007c100b2a8b9",
+      "type": "DataFilter"
+    },
+    {
+      "source": "8dc61f63b80cd91ba385",
+      "target": "c619b69007c100b2a8b9",
+      "type": "NoFilter"
+    }
+  ]
+}

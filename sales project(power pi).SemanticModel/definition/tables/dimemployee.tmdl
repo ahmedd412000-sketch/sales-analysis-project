@@ -1,0 +1,103 @@
+table dimemployee
+	lineageTag: e3160374-40a9-463a-bf88-578a589fa7d7
+
+	column 'Employee Key'
+		dataType: int64
+		formatString: 0
+		lineageTag: 3e239898-ec56-4e85-a9d5-70d7cfd50e08
+		summarizeBy: none
+		sourceColumn: Employee Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'WWI Employee ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: ba6d538c-57d8-4b54-ae78-9ac8d2581df0
+		summarizeBy: count
+		sourceColumn: WWI Employee ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Employee
+		dataType: string
+		lineageTag: 6164a62f-637d-45ba-9100-dcaa3f88bbdb
+		summarizeBy: none
+		sourceColumn: Employee
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Preferred Name'
+		dataType: string
+		lineageTag: df2938cb-094e-4ec6-82b2-cb1e500b1ef8
+		summarizeBy: none
+		sourceColumn: Preferred Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Is Salesperson'
+		dataType: int64
+		formatString: 0
+		lineageTag: 7ef8f84b-b96f-42b2-bdc2-597f947c95e7
+		summarizeBy: sum
+		sourceColumn: Is Salesperson
+
+		annotation SummarizationSetBy = Automatic
+
+	column Photo
+		dataType: string
+		lineageTag: 9f5796cb-7052-4e36-8195-0fa75b9c189b
+		summarizeBy: none
+		sourceColumn: Photo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Valid From'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: fc0a83af-8b79-4863-8753-6c47800ff681
+		summarizeBy: none
+		sourceColumn: Valid From
+
+		variation Variation
+			isDefault
+			relationship: b146cb15-d37c-4339-a456-52ee25c0fc8f
+			defaultHierarchy: LocalDateTable_137f2f1c-b190-4c91-89b5-f9e240492b6b.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Valid To'
+		dataType: string
+		lineageTag: 63d844ec-ac84-42ca-9ddf-2cc784428522
+		summarizeBy: none
+		sourceColumn: Valid To
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Lineage Key'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1aaff550-7abe-45ee-94b4-57c4959dd204
+		summarizeBy: count
+		sourceColumn: Lineage Key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dimemployee = m
+		mode: import
+		source =
+				let
+				    Source = Folder.Files("C:\Users\ahmed\Downloads\WWI(data set)"),
+				    #"C:\Users\ahmed\Downloads\WWI(data set)\_DimEmployee xlsx" = Source{[#"Folder Path"="C:\Users\ahmed\Downloads\WWI(data set)\",Name="DimEmployee.xlsx"]}[Content],
+				    #"Imported Excel Workbook" = Excel.Workbook(#"C:\Users\ahmed\Downloads\WWI(data set)\_DimEmployee xlsx"),
+				    DimEmployee_Sheet = #"Imported Excel Workbook"{[Item="DimEmployee",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(DimEmployee_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Employee Key", Int64.Type}, {"WWI Employee ID", Int64.Type}, {"Employee", type text}, {"Preferred Name", type text}, {"Is Salesperson", Int64.Type}, {"Photo", type text}, {"Valid From", type datetime}, {"Valid To", type any}, {"Lineage Key", Int64.Type}}),
+				    #"Removed Top Rows" = Table.Skip(#"Changed Type",1)
+				in
+				    #"Removed Top Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
